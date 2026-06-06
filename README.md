@@ -35,14 +35,21 @@
 
 ### 1. Сборка проекта (Uber-JAR)
 
-Для компиляции кода и сборки "толстого" jar-ника со всеми необходимыми коннекторами (Kafka, JDBC/Postgres) выполните:
+Для компиляции кода и сборки "толстого" jar-ника со всеми необходимыми коннекторами (Kafka, JDBC/Postgres) выполните (одну команду на консоль):
+```bash
+python3 generator.py
 
+```
+```bash
+docker exec -it iot-kafka kafka-console-consumer --bootstrap-server localhost:9092 --topic iot-raw-events --from-beginning
+
+```
 ```bash
 mvn clean package
 
 ```
 
-После успешной сборки в папке `target/` появится файл `flink-iot-analytics-1.0-SNAPSHOT.jar`.
+После успешной сборки в папке `target/` появится файл `flink-iot-analytics-1.0-SNAPSHOT.jar` (третий терминал).
 
 ### 2. Деплой на Flink JobManager
 
@@ -55,7 +62,7 @@ docker cp target/flink-iot-analytics-1.0-SNAPSHOT.jar flink-jobmanager:/tmp/job.
 
 ### 3. Запуск Flink-джобы
 
-Запустите потоковую задачу в кластере, указав главный класс приложения:
+Запустите потоковую задачу в кластере, указав главный класс приложения (третий терминал):
 
 ```bash
 docker exec -it flink-jobmanager flink run -c ru.hse.bigdata.DataStreamJob /tmp/job.jar
