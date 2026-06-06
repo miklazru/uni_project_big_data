@@ -69,6 +69,20 @@ docker exec -it flink-jobmanager flink run -c ru.hse.bigdata.DataStreamJob /tmp/
 
 ```
 
+### 4. После запуска
+
+Чтобы посмотреть работает ли Джоба + посмотреть id 
+```bash
+docker exec -it flink-jobmanager flink list
+
+```
+Чтобы остановить работу Джобы
+```bash
+docker exec -it flink-jobmanager flink cancel <JOB_ID>
+
+```
+
+
 ---
 
 ## 🖥 Мониторинг и управление
